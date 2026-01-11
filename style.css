@@ -1,0 +1,149 @@
+body {
+
+    /* Texte */
+    font-family: Okaso, sans-serif;
+    font-size: large;
+    color: white;
+    text-shadow: 1px 1px 2px rgb(136, 136, 136);
+
+    /* Fond */
+    background-image: url("background.jpg");
+
+}
+
+.boite1 {
+
+    display: flex;
+
+    /* Disposition */
+    width: 1032px;
+    height: 256px;
+    margin: auto;
+
+    /* Style de la box */
+    border-radius: 23px;
+    background-color: rgba(9, 92, 112, 0.205);
+    backdrop-filter: blur(3px);
+
+    /* Disposition du contenu */
+
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.boite2 {
+
+    display: flex;
+
+    /* Disposition */
+    width: 1032px;
+    height: 559px;
+    margin: auto;
+    margin-top: 20px;
+
+    /* Style de la box */
+    background-color: rgba(99, 175, 194, 0.205);
+    border-radius: 23px;
+    backdrop-filter: blur(3px);
+
+    /* Disposition du contenu */
+    flex-direction: column;
+    align-items: center;
+
+    /* Style du contenu */
+    font-size: xx-large;
+    font-weight: 700;
+
+}
+
+/* Zone de saisie et bouton */
+.saisie {
+    display: flex;
+}
+
+.zoneRecherche {
+    width: 576px;
+    height: 38px;
+    border-radius: 11px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    outline: none;
+}
+
+.bouton {
+    border-radius: 11px;
+    color: rgb(8, 0, 110);
+    background-color: rgb(255, 255, 255);
+    font-family: Okaso, sans-serif;
+    font-weight: 700;
+    border: 1px solid #ccc;
+    outline: none;
+    margin-left: 10px;
+}
+
+.villeChoisie {
+    display: none;
+    font-size: 1em;
+    color: rgb(255, 255, 255);
+    text-shadow: 2px 2px 4px rgb(78, 78, 78);
+    animation: none;
+}
+
+/* Semaine */
+.semaine {
+
+    /* Affichage */
+    display: none;
+    animation: none;
+
+    /* Disposition de la box */
+    margin: auto;
+    margin-bottom: 30px;
+    gap: 50px;
+
+    /* Contenu */
+    font-size: 16px;
+    color: rgb(255, 255, 255);
+    text-shadow: 1px 1px 2px rgb(95, 95, 95);
+}
+
+.jourJ,
+.jourPlus1,
+.jourPlus2,
+.jourPlus3 {
+
+    /* Affichage */
+    display: flex;
+
+    /* Disposition */
+    width: 200px;
+    height: 250px;
+    margin: auto;
+
+    /* Style de la box */
+    border-radius: 12px;
+    box-shadow: 2px;
+    background-color: rgba(9, 91, 112, 0.315);
+    backdrop-filter: blur(5px);
+
+    /* Disposition du contenu */
+    flex-direction: column;
+    align-items: center;
+
+}
+
+/* Animation */
+@keyframes apparition {
+    from {
+        opacity: 0;
+        transform: translateY(50px)
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
