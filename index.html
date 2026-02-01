@@ -2,64 +2,36 @@
 <html lang="fr">
 
 <head>
-    <meta charset="UTF-8">
-    <title>Météo</title>
-    <link rel="icon" type="image/png" href="icon.png">
-    <link rel="stylesheet" href="style.css">
-    <script src="script.js" defer></script>
+  <meta charset="UTF-8">
+  <title>Météo</title>
+  <link rel="icon" type="image/png" href="icon.png">
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
 
 </head>
 
 <body>
-    <header class="hero-banner">
-        <h1>Météo</h1>
-        <h2>L'application pour consulter la météo !</h2>
-        <p>Consultez la météo de n'importe quelle ville !</p>
-    </header>
+  <header class="hero-banner">
+    <h1>Météo</h1>
+    <h2>L'application pour consulter la météo !</h2>
+    <p>Consultez la météo de n'importe quelle ville !</p>
+  </header>
 
-    <section class="forecast-section">
-        <p>Entrez la ville de votre choix</p>
+  <section class="forecast-section">
+    <p>Entrez la ville de votre choix</p>
 
-        <section class="search-section">
-            <input class="search-input" id="city-input">
-            <button class="search-button" id="search-button" type="search-button" click="click">Découvrir le
-                temps</button>
-        </section>
-
-        <p class="city" id="city"></p>
-
-        <div class="forecast-container" id="forecast-container">
-
-            <article class="forecast-card" id="card-0">
-                <p class="forecast-card__day" id="day-0"></p>
-                <p class="forecast-card__temp" id="temp-0"></p>
-                <img class="forecast-card__icon" id="icon-0">
-                <p class="forecast-card__desc" id="desc-0"></p>
-            </article>
-
-            <article class="forecast-card" id="card-1">
-                <p class="forecast-card__day" id="day-1"></p>
-                <p class="forecast-card__temp" id="temp-1"></p>
-                <img class="forecast-card__icon" id="icon-1">
-                <p class="forecast-card__desc" id="desc-1"></p>
-            </article>
-
-            <article class="forecast-card" id="card-2">
-                <p class="forecast-card__day" id="day-2"></p>
-                <p class="forecast-card__temp" id="temp-2"></p>
-                <img class="forecast-card__icon" id="icon-2">
-                <p class="forecast-card__desc" id="desc-2"></p>
-            </article>
-
-            <article class="forecast-card" id="card-3">
-                <p class="forecast-card__day" id="day-3"></p>
-                <p class="forecast-card__temp" id="temp-3"></p>
-                <img class="forecast-card__icon" id="icon-3">
-                <p class="forecast-card__desc" id="desc-3"></p>
-            </article>
-
-        </div>
+    <section class="search-section">
+      <input class="search-input" id="city-input">
+      <button class="search-button" id="search-button" type="search-button" click="click">Découvrir le
+        temps</button>
     </section>
+
+    <p class="city" id="city"></p>
+
+    <div class="forecast-container" id="forecast-container">
+
+    </div>
+  </section>
 </body>
 
 </html>

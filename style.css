@@ -81,6 +81,7 @@ body {
     border: 1px solid #ccc;
     outline: none;
     margin-left: 10px;
+    cursor: pointer;
 }
 
 .city {

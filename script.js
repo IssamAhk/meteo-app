@@ -1,5 +1,3 @@
-const API_KEY = import.meta.env.VITE_API_KEY
-
 const bouton = document.getElementById("search-button")
 
 
@@ -14,7 +12,7 @@ function jourSemaine(date) {
 bouton.addEventListener('click',
     function meteo() {
         let villeChoisie = document.getElementById("city-input").value
-        let url = `https://api.openweathermap.org/data/2.5/forecast?q=${villeChoisie}&appid=${API_KEY}&units=metric&lang=fr`
+        let url = `/meteo?ville=${villeChoisie}`
 
         document.getElementById('forecast-container').style.display = 'none';
         document.getElementById('forecast-container').style.animation = 'none';
@@ -36,6 +34,8 @@ bouton.addEventListener('click',
 
                     document.getElementById('city').innerHTML = "Ville : " + villeChoisie;
 
+                    const container = document.getElementById('forecast-container');
+
                     /* Température du jour J */
 
                     let jourJ = (data.list[0].dt_txt.substr(1, 9))
@@ -43,11 +43,14 @@ bouton.addEventListener('click',
                     let icone = data.list[0].weather[0].icon
                     let tempsJ = data.list[0].weather[0].description
 
-                    document.getElementById('day-0').innerHTML = "Maintenant"
-                    document.getElementById('temp-0').innerHTML = temperatureJ + "°C";
-                    document.getElementById('desc-0').innerHTML = tempsJ;
-                    document.getElementById('icon-0').src = `https://openweathermap.org/img/wn/${icone}@2x.png`;
-
+                    container.innerHTML += `
+                <article class="forecast-card">
+                    <p class="forecast-card__day">Maintenant</p>
+                    <p class="forecast-card__temp">${temperatureJ}°C</p>
+                    <img class="forecast-card__icon" src="https://openweathermap.org/img/wn/${icone}@2x.png">
+                    <p class="forecast-card__desc">${tempsJ}</p>
+                </article>
+             `;
 
                     /* JourJ + n : on séléctionne seulement la météo de 12h des jours autres que J */
                     let arrondiMidi = data.list.filter(item =>
@@ -55,16 +58,20 @@ bouton.addEventListener('click',
                         && !item.dt_txt.includes(jourJ)
                     )
 
-                    for (let i = 0; i < 3; i++) {
+                    for (let i = 0; i < 5; i++) {
                         let jourPlusi = jourSemaine(arrondiMidi[i].dt_txt.substr(0, 10))
                         let temperaturePlusi = arrondiMidi[i].main.temp
                         let iconePlusi = arrondiMidi[i].weather[0].icon
                         let tempsPlusi = arrondiMidi[i].weather[0].description
 
-                        document.getElementById(`day-${i + 1}`).innerHTML = jourPlusi
-                        document.getElementById(`temp-${i + 1}`).innerHTML = temperaturePlusi + "°C";
-                        document.getElementById(`icon-${i + 1}`).src = `https://openweathermap.org/img/wn/${iconePlusi}@2x.png`;
-                        document.getElementById(`desc-${i + 1}`).innerHTML = tempsPlusi;
+                        container.innerHTML += `
+                    <article class="forecast-card">
+                        <p class="forecast-card__day">${jourPlusi}</p>
+                        <p class="forecast-card__temp">${temperaturePlusi}°C</p>
+                        <img class="forecast-card__icon" src="https://openweathermap.org/img/wn/${iconePlusi}@2x.png">
+                        <p class="forecast-card__desc">${tempsPlusi}</p>
+                    </article>
+                `;
 
                     }
 
