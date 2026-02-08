@@ -8,6 +8,22 @@ function jourSemaine(date) {
     return dateMinuscule.charAt(0).toUpperCase() + dateMinuscule.slice(1)
 }
 
+function moment(heure) {
+    if (heure == "00:00:00") {
+        return "Nuit"
+    }
+    if (heure == "09:00:00") {
+        return "Matin"
+    }
+    if (heure == "15:00:00") {
+        return "Après-midi"
+    }
+    if (heure == "21:00:00") {
+        return "Soir"
+    }
+
+}
+
 bouton.addEventListener('click',
     function meteo() {
         let villeChoisie = document.getElementById("city-input").value
@@ -50,25 +66,34 @@ bouton.addEventListener('click',
 
                     console.log("Voici mes données toutes propres :", dataPropre);
 
-                    container.innerHTML = ""; // Clear previous results
+                    container.innerHTML = "";
 
-                    /* Température du jour J */
+                    let jourPrecedent = "";
+
                     dataPropre.forEach(element => {
                         let jour = jourSemaine(element.dt_txt.substr(0, 10))
                         let temperature = element.main.temp
                         let icone = element.weather[0].icon
                         let temps = element.weather[0].description
+                        let momentJournée = moment(element.dt_txt.split(" ")[1])
+
+                        if (jourPrecedent !== "" && jour !== jourPrecedent) {
+                            container.innerHTML += `<div style="width: 100%; height: 20px;"></div>`;
+                        }
 
                         container.innerHTML += `
-                    <article class="forecast-card">
-                        <p class="forecast-card__day">${jour}</p>
-                        <p class="forecast-card__temp">${temperature}°C</p>
-                        <img class="forecast-card__icon" src="https://openweathermap.org/img/wn/${icone}@2x.png">
-                        <p class="forecast-card__desc">${temps}</p>
-                    </article>
-                `;
-                    }
-                    )
+                            <article class="forecast-card">
+                                <p class="forecast-card__day">${jour}</p>
+                                <p class="forecast-card__moment">${momentJournée}</p>
+                                <p class="forecast-card__temp">${temperature}°C</p>
+                                <img class="forecast-card__icon" src="https://openweathermap.org/img/wn/${icone}@2x.png">
+                                <p class="forecast-card__desc">${temps}</p>
+                            </article>
+                        `;
+
+
+                        jourPrecedent = jour;
+                    });
 
                     document.getElementById('forecast-container').style.display = 'flex';
                     document.getElementById('city').style.display = 'block';
@@ -76,20 +101,6 @@ bouton.addEventListener('click',
                     document.getElementById('city').style.animation = 'apparition 0.8s';
 
                 }
-
-
-
-
             })
-    }
-
-)
-
-
-
-
-
-
-
-
+    });
 

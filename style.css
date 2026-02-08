@@ -2,12 +2,14 @@ body {
 
     /* Texte */
     font-family: Okaso, sans-serif;
-    font-size: large;
+    font-size: 1.125rem;
     color: white;
     text-shadow: 1px 1px 2px rgb(136, 136, 136);
 
     /* Fond */
     background-image: url("background.jpg");
+    background-attachment: fixed;
+    background-size: cover;
 
 }
 
@@ -16,9 +18,12 @@ body {
     display: flex;
 
     /* Disposition */
-    width: 1032px;
-    height: 256px;
+    max-width: 1032px;
+    width: 70%;
+    max-height: 256px;
+    height: 30%;
     margin: auto;
+    padding: 20px;
 
     /* Style de la box */
     border-radius: 23px;
@@ -38,10 +43,12 @@ body {
     display: flex;
 
     /* Disposition */
-    width: 1032px;
-    height: 559px;
+    max-width: 1032px;
+    width: 70%;
+    height: auto;
     margin: auto;
     margin-top: 20px;
+    padding: 20px;
 
     /* Style de la box */
     background-color: rgba(99, 175, 194, 0.205);
@@ -53,7 +60,7 @@ body {
     align-items: center;
 
     /* Style du contenu */
-    font-size: xx-large;
+    font-size: 2rem;
     font-weight: 700;
 
 }
@@ -61,15 +68,20 @@ body {
 /* Zone de saisie et bouton */
 .search-section {
     display: flex;
+    width: 100%;
+    max-width: 600px;
+    gap: 10px;
+
 }
 
 .search-input {
-    width: 576px;
+    flex: 1;
     height: 38px;
     border-radius: 11px;
     padding: 10px;
     border: 1px solid #ccc;
     outline: none;
+    box-sizing: border-box;
 }
 
 .search-button {
@@ -80,8 +92,9 @@ body {
     font-weight: 700;
     border: 1px solid #ccc;
     outline: none;
-    margin-left: 10px;
     cursor: pointer;
+    padding: 0 20px;
+
 }
 
 .city {
@@ -98,6 +111,7 @@ body {
     /* Affichage */
     display: none;
     animation: none;
+    flex-wrap: wrap;
 
     /* Disposition de la box */
     margin: auto;
@@ -105,7 +119,7 @@ body {
     gap: 50px;
 
     /* Contenu */
-    font-size: 16px;
+    font-size: 1rem;
     color: rgb(255, 255, 255);
     text-shadow: 1px 1px 2px rgb(95, 95, 95);
 }
@@ -117,6 +131,7 @@ body {
 
     /* Disposition */
     width: 200px;
+    max-width: 100%;
     height: 250px;
     margin: auto;
 
@@ -144,4 +159,28 @@ body {
         transform: translateY(0);
     }
 
+}
+
+@media (max-width: 768px) {
+
+    .hero-banner,
+    .forecast-section {
+        width: 95%;
+        margin-top: 10px;
+        padding: 10px;
+    }
+
+    .forecast-section {
+        font-size: 1.5rem;
+    }
+
+    .search-section {
+        flex-direction: column;
+    }
+
+    .search-button {
+        width: 100%;
+        height: 44px;
+        margin-top: 10px;
+    }
 }
