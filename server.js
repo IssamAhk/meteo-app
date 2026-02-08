@@ -3,7 +3,6 @@ import express from 'express';
 
 const app = express();
 
-// Sert les fichiers du dossier courant (index.html, style.css, script.js)
 app.use(express.static('.'));
 
 app.get('/meteo', async (req, res) => {

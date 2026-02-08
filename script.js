@@ -8,7 +8,6 @@ function jourSemaine(date) {
     return dateMinuscule.charAt(0).toUpperCase() + dateMinuscule.slice(1)
 }
 
-
 bouton.addEventListener('click',
     function meteo() {
         let villeChoisie = document.getElementById("city-input").value
@@ -36,44 +35,40 @@ bouton.addEventListener('click',
 
                     const container = document.getElementById('forecast-container');
 
+                    let heuresVoulues = ["00:00:00", "09:00:00", "15:00:00", "21:00:00"];
+
+                    let dataPropre = data.list.filter(item => {
+
+                        let heureDeLaPrevision = item.dt_txt.split(" ")[1];
+
+                        return heuresVoulues.includes(heureDeLaPrevision);
+                    });
+
+                    if (dataPropre[0].dt_txt !== data.list[0].dt_txt) {
+                        dataPropre.unshift(data.list[0])
+                    }
+
+                    console.log("Voici mes données toutes propres :", dataPropre);
+
+                    container.innerHTML = ""; // Clear previous results
+
                     /* Température du jour J */
-
-                    let jourJ = (data.list[0].dt_txt.substr(1, 9))
-                    let temperatureJ = Math.round(data.list[0].main.temp)
-                    let icone = data.list[0].weather[0].icon
-                    let tempsJ = data.list[0].weather[0].description
-
-                    container.innerHTML += `
-                <article class="forecast-card">
-                    <p class="forecast-card__day">Maintenant</p>
-                    <p class="forecast-card__temp">${temperatureJ}°C</p>
-                    <img class="forecast-card__icon" src="https://openweathermap.org/img/wn/${icone}@2x.png">
-                    <p class="forecast-card__desc">${tempsJ}</p>
-                </article>
-             `;
-
-                    /* JourJ + n : on séléctionne seulement la météo de 12h des jours autres que J */
-                    let arrondiMidi = data.list.filter(item =>
-                        item.dt_txt.includes("12:00:00")
-                        && !item.dt_txt.includes(jourJ)
-                    )
-
-                    for (let i = 0; i < 5; i++) {
-                        let jourPlusi = jourSemaine(arrondiMidi[i].dt_txt.substr(0, 10))
-                        let temperaturePlusi = arrondiMidi[i].main.temp
-                        let iconePlusi = arrondiMidi[i].weather[0].icon
-                        let tempsPlusi = arrondiMidi[i].weather[0].description
+                    dataPropre.forEach(element => {
+                        let jour = jourSemaine(element.dt_txt.substr(0, 10))
+                        let temperature = element.main.temp
+                        let icone = element.weather[0].icon
+                        let temps = element.weather[0].description
 
                         container.innerHTML += `
                     <article class="forecast-card">
-                        <p class="forecast-card__day">${jourPlusi}</p>
-                        <p class="forecast-card__temp">${temperaturePlusi}°C</p>
-                        <img class="forecast-card__icon" src="https://openweathermap.org/img/wn/${iconePlusi}@2x.png">
-                        <p class="forecast-card__desc">${tempsPlusi}</p>
+                        <p class="forecast-card__day">${jour}</p>
+                        <p class="forecast-card__temp">${temperature}°C</p>
+                        <img class="forecast-card__icon" src="https://openweathermap.org/img/wn/${icone}@2x.png">
+                        <p class="forecast-card__desc">${temps}</p>
                     </article>
                 `;
-
                     }
+                    )
 
                     document.getElementById('forecast-container').style.display = 'flex';
                     document.getElementById('city').style.display = 'block';
