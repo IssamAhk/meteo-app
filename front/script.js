@@ -1,8 +1,8 @@
 const searchButton = document.getElementById("search-button");
 const container = document.getElementById('forecast-container');
 
-import { search } from './client/api.js';
-import { dataClean } from './utils/helpers.js';
+import { search } from './js/client/api.js';
+import { dataClean } from './js/utils/helpers.js';
 import { resetUI, displayError, dataDisplay } from './ui/render.js';
 
 async function getWeather() {
