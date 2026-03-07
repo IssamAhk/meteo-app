@@ -38,3 +38,16 @@ export function dataClean(data) {
 
     return cleanData
 }
+
+export function addToFavorites() {
+    let city = document.getElementById("city-input").value;
+
+    if (city != "") {
+        let favorites = JSON.parse(localStorage.getItem("villes")) || [];
+
+        if (!favorites.includes(city)) {
+            favorites.push(city);
+            localStorage.setItem("villes", JSON.stringify(favorites));
+        }
+    }
+}

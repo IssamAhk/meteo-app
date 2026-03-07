@@ -53,3 +53,16 @@ export function dataDisplay(chosenCity, cleanData) {
     document.getElementById('city').style.animation = 'apparition 0.8s';
 
 }
+
+const favoriteList = document.getElementById("favorite-list");
+
+export function displayFavorites() {
+    let favorites = JSON.parse(localStorage.getItem("villes")) || [];
+    let content = "";
+
+    favorites.forEach(city => {
+        content += `<button class="favorite-city-btn" id="favorite-city-btn">${city}</button>`;
+    });
+
+    favoriteList.innerHTML = content;
+}

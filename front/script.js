@@ -1,9 +1,11 @@
 const searchButton = document.getElementById("search-button");
-const container = document.getElementById('forecast-container');
+const container = document.getElementById("forecast-container");
+const favoriteButton = document.getElementById("add-favorite");
+const favoriteList = document.getElementById("favorite-list")
 
 import { search } from './js/client/api.js';
-import { dataClean } from './js/utils/helpers.js';
-import { resetUI, displayError, dataDisplay } from './ui/render.js';
+import { dataClean, addToFavorites } from './js/utils/helpers.js';
+import { resetUI, displayError, dataDisplay, displayFavorites } from './ui/render.js';
 
 async function getWeather() {
     let chosenCity = document.getElementById("city-input").value
@@ -11,7 +13,7 @@ async function getWeather() {
 
     resetUI();
     let data = await search(url)
-    console.log(data)
+
     if (data.cod != "200") {
         displayError();
     }
@@ -21,4 +23,17 @@ async function getWeather() {
     }
 }
 
-searchButton.addEventListener('click', getWeather)
+searchButton.addEventListener('click', getWeather);
+
+displayFavorites();
+
+favoriteButton.addEventListener('click', () => {
+    addToFavorites();
+    displayFavorites();
+});
+
+favoriteList.addEventListener('click', (event) => {
+    const cityName = event.target.textContent;
+    document.getElementById("city-input").value = cityName
+    getWeather();
+});
