@@ -1,64 +1,23 @@
-const searchButton = document.getElementById("search-button");
+import { getDay, getMoment } from '../js/utils/helpers.js';
 const container = document.getElementById('forecast-container');
 
-function getDay(date) {
-    let x = new Date(date);
-    let dateMinuscule = x.toLocaleDateString('fr-FR', { weekday: "long", day: "numeric" });
-    return dateMinuscule.charAt(0).toUpperCase() + dateMinuscule.slice(1);
-}
-function getMoment(input) {
-    switch (input) {
-        case "00:00:00":
-            return "Nuit";
-        case "09:00:00":
-            return "Matin";
-        case "15:00:00":
-            return "Après-midi";
-        case "21:00:00":
-            return "Soir";
-        default:
-            return input;
-    }
-}
-
-function resetUI() {
+export function resetUI() {
     document.getElementById('forecast-container').style.display = 'none';
     document.getElementById('forecast-container').style.animation = 'none';
     document.getElementById('city').style.display = 'none';
     document.getElementById('forecast-container').style.animation = 'none';
 }
-async function search(url) {
-    let response = await fetch(url);
-    let data = await response.json();
-    return data;
-}
-function displayError() {
+
+export function displayError() {
     document.getElementById('city').innerHTML = "Introuvable, vérifiez l'orthographe.";
     document.getElementById('city').style.display = 'block';
     document.getElementById('city').style.animation = 'apparition 0.8s';
 }
-function dataClean(data) {
-    let targetHours = {
-        0: 1,
-        9: 1,
-        15: 1,
-        21: 1,
-    };
 
-    let cleanData = data.list.filter(item => {
-        const hour = (item.dt / 3600) % 24
-        return targetHours[hour]
-    });
-
-    if (cleanData[0].dt_txt !== data.list[0].dt_txt) {
-        cleanData.unshift(data.list[0])
-    }
-
-    return cleanData
-}
-function dataDisplay(chosenCity, cleanData) {
+export function dataDisplay(chosenCity, cleanData) {
     document.getElementById('city').innerHTML = "Ville : " + chosenCity;
     let previousDay = ""
+    let forecastContent = ""
 
     cleanData.forEach((element) => {
         let day = getDay(element.dt_txt.substr(0, 10))
@@ -68,10 +27,10 @@ function dataDisplay(chosenCity, cleanData) {
         let dayMoment = getMoment(element.dt_txt.split(" ")[1])
 
         if (previousDay !== "" && day !== previousDay) {
-            container.innerHTML += `<div style="width: 100%; height: 20px;"></div>`;
+            forecastContent += `<div style="width: 100%; height: 20px;"></div>`;
         }
 
-        container.innerHTML += `    
+        forecastContent += `    
             <article class="forecast-card">
             <p class="forecast-card__day">${day}</p>
             <p class="forecast-card__moment">${dayMoment}</p>
@@ -83,7 +42,10 @@ function dataDisplay(chosenCity, cleanData) {
 
 
         previousDay = day;
-    });
+    }
+    );
+
+    container.innerHTML = forecastContent
 
     document.getElementById('forecast-container').style.display = 'flex';
     document.getElementById('city').style.display = 'block';
@@ -92,20 +54,15 @@ function dataDisplay(chosenCity, cleanData) {
 
 }
 
-async function getWeather() {
-    let chosenCity = document.getElementById("city-input").value
-    let url = `/meteo?ville=${chosenCity}`
+const favoriteList = document.getElementById("favorite-list");
 
-    resetUI();
-    let data = await search(url)
-    console.log(data)
-    if (data.cod != "200") {
-        displayError();
-    }
-    else {
-        let cleanData = dataClean(data)
-        return dataDisplay(chosenCity, cleanData)
-    }
+export function displayFavorites() {
+    let favorites = JSON.parse(localStorage.getItem("villes")) || [];
+    let content = "";
+
+    favorites.forEach(city => {
+        content += `<button class="favorite-city-btn" id="favorite-city-btn">${city}</button>`;
+    });
+
+    favoriteList.innerHTML = content;
 }
-
-searchButton.addEventListener('click', getWeather)

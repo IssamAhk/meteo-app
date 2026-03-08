@@ -4,9 +4,9 @@
 <head>
   <meta charset="UTF-8">
   <title>Météo</title>
-  <link rel="icon" type="image/png" href="icon.png">
-  <link rel="stylesheet" href="style.css">
-  <script src="script.js" defer></script>
+  <link rel="icon" type="image/png" href="ui/icon.png">
+  <link rel="stylesheet" href="ui/style.css">
+  <script src="script.js" type="module" defer></script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
@@ -22,9 +22,11 @@
 
     <section class="search-section">
       <input class="search-input" id="city-input">
-      <button class="search-button" id="search-button" type="search-button" click="click">Découvrir le
-        temps</button>
+      <button class="search-button" id="search-button">Découvrir le temps</button>
+      <button class="favorite-button" id="add-favorite">Ajouter aux favoris</button>
     </section>
+
+    <div id="favorite-list"></div>
 
     <p class="city" id="city"></p>
 
